@@ -1,0 +1,313 @@
+[{
+    "text": "The fabled Mirzakhani wand is the most\npowerful magical item ever created.",
+    "start": 6.878,
+    "duration": 4.921
+}, {
+    "text": "And that\u2019s why the evil wizard Moldevort\nis planning to use it",
+    "start": 12.216,
+    "duration": 3.712
+}, {
+    "text": "to conquer the world.",
+    "start": 15.928,
+    "duration": 1.46
+}, {
+    "text": "You and Drumbledrore have finally\ndiscovered its hiding place in this cave.",
+    "start": 17.805,
+    "duration": 4.838
+}, {
+    "text": "The wand is hidden by a system\nof 100 magical stones\u2014",
+    "start": 23.227,
+    "duration": 4.296
+}, {
+    "text": "including a glowing keystone\u2014\nand 100 platforms.",
+    "start": 27.523,
+    "duration": 4.88
+}, {
+    "text": "If the keystone is placed \non the correct platform,",
+    "start": 32.57,
+    "duration": 3.045
+}, {
+    "text": "the wand will be revealed.",
+    "start": 35.615,
+    "duration": 1.751
+}, {
+    "text": "If placed incorrectly, \nthe entire cave will collapse.",
+    "start": 37.366,
+    "duration": 4.088
+}, {
+    "text": "The keystone is immune to all magic,\nbut the other stones aren't,",
+    "start": 42.413,
+    "duration": 3.796
+}, {
+    "text": "meaning you can pick them up\nand cast a placement spell,",
+    "start": 46.209,
+    "duration": 3.295
+}, {
+    "text": "and the platform that stone\nbelongs on will glow.",
+    "start": 49.504,
+    "duration": 3.086
+}, {
+    "text": "Place all 99 stones correctly",
+    "start": 53.174,
+    "duration": 2.586
+}, {
+    "text": "and the final platform must be \nthe keystone\u2019s correct resting place.",
+    "start": 55.76,
+    "duration": 4.296
+}, {
+    "text": "You\u2019re about to get started when one\nof Moldevort\u2019s henchmen arrives",
+    "start": 60.223,
+    "duration": 3.628
+}, {
+    "text": "and irreversibly seals a random stone\nto a random platform.",
+    "start": 63.851,
+    "duration": 4.713
+}, {
+    "text": "If you need to place a stone that belongs\non a platform that's already occupied,",
+    "start": 68.856,
+    "duration": 4.797
+}, {
+    "text": "your spell will make some random\nunoccupied platform glow instead.",
+    "start": 73.82,
+    "duration": 5.38
+}, {
+    "text": "What are your odds of placing the keystone\non the correct platform?",
+    "start": 79.7,
+    "duration": 4.296
+}, {
+    "text": "Pause now to figure it out for yourself.\nAnswer in 3",
+    "start": 84.122,
+    "duration": 2.711
+}, {
+    "text": "Answer in 2",
+    "start": 86.833,
+    "duration": 2.002
+}, {
+    "text": "Answer in 1",
+    "start": 88.835,
+    "duration": 1.751
+}, {
+    "text": "Let\u2019s imagine we knew everything \nabout this situation.",
+    "start": 92.213,
+    "duration": 2.92
+}, {
+    "text": "With perfect knowledge, we could label \nthe stones 1 to 100,",
+    "start": 95.133,
+    "duration": 4.045
+}, {
+    "text": "based on the order we plan to place them,",
+    "start": 99.303,
+    "duration": 2.503
+}, {
+    "text": "and label the platforms they belong \non in the same way.",
+    "start": 101.806,
+    "duration": 3.337
+}, {
+    "text": "We\u2019ll label the stone\nthe henchmen placed as 1,",
+    "start": 105.351,
+    "duration": 3.42
+}, {
+    "text": "meaning it was supposed \nto go on platform 1,",
+    "start": 108.771,
+    "duration": 3.045
+}, {
+    "text": "and the keystone as 100,\nbelonging on platform 100.",
+    "start": 111.816,
+    "duration": 4.212
+}, {
+    "text": "Of course, we don\u2019t know \nwhich platform is which,",
+    "start": 116.737,
+    "duration": 2.711
+}, {
+    "text": "so the numbering of the platforms\nis actually invisible to us.",
+    "start": 119.448,
+    "duration": 3.754
+}, {
+    "text": "There are three possibilities:",
+    "start": 123.828,
+    "duration": 1.877
+}, {
+    "text": "one, that first stone was placed\nrandomly onto its own platform,",
+    "start": 125.83,
+    "duration": 4.463
+}, {
+    "text": "in which case,\nyou\u2019re guaranteed to succeed.",
+    "start": 130.293,
+    "duration": 2.711
+}, {
+    "text": "Two, it was placed on the keystone\u2019s\nplatform and you\u2019re doomed to fail.",
+    "start": 133.337,
+    "duration": 4.713
+}, {
+    "text": "But most likely\u2014 scenario three\u2014\nit was placed somewhere else.",
+    "start": 138.176,
+    "duration": 4.546
+}, {
+    "text": "Suppose the henchman placed \nstone 1 on, say, platform 45.",
+    "start": 143.306,
+    "duration": 4.504
+}, {
+    "text": "Then you\u2019d place stone 2 \non platform 2,",
+    "start": 147.935,
+    "duration": 3.087
+}, {
+    "text": "3 on 3, and so on,\nuntil you got to stone 45.",
+    "start": 151.022,
+    "duration": 3.879
+}, {
+    "text": "Its platform being taken, \na random platform would light up.",
+    "start": 155.234,
+    "duration": 3.712
+}, {
+    "text": "And here, there are three possibilities:",
+    "start": 159.197,
+    "duration": 2.836
+}, {
+    "text": "If it\u2019s platform 1, you\u2019ll win,",
+    "start": 162.2,
+    "duration": 2.46
+}, {
+    "text": "because all of the remaining stones \nwill go to the correct platforms.",
+    "start": 164.66,
+    "duration": 3.671
+}, {
+    "text": "If platform 100 lights up,\nyou lose,",
+    "start": 168.456,
+    "duration": 2.919
+}, {
+    "text": "because the keystone\u2019s spot will be taken.",
+    "start": 171.375,
+    "duration": 2.545
+}, {
+    "text": "Any other platform, and you\u2019re essentially\nback where you started,",
+    "start": 174.128,
+    "duration": 3.504
+}, {
+    "text": "just with 54 remaining stones \nand one on the wrong platform.",
+    "start": 177.632,
+    "duration": 4.129
+}, {
+    "text": "In that scenario, let\u2019s say the spell\ntells us to place stone 45 on platform 82.",
+    "start": 182.178,
+    "duration": 6.131
+}, {
+    "text": "Then we place 46 to 81 correctly,\nand 82 at random.",
+    "start": 188.517,
+    "duration": 4.88
+}, {
+    "text": "And here we reach the same\nthree possibilities:",
+    "start": 193.397,
+    "duration": 3.212
+}, {
+    "text": "pedestal 1, you win, \npedestal 100, you lose,",
+    "start": 196.776,
+    "duration": 4.129
+}, {
+    "text": "any other, you continue the process.",
+    "start": 200.905,
+    "duration": 2.502
+}, {
+    "text": "In other words, you\u2019re playing a game\nwhere you have equal chances",
+    "start": 203.658,
+    "duration": 3.878
+}, {
+    "text": "to win and lose,",
+    "start": 207.536,
+    "duration": 1.419
+}, {
+    "text": "and some chance to delay\nthe decisive moment.",
+    "start": 208.955,
+    "duration": 3.169
+}, {
+    "text": "No matter how many times\nthis process repeats,",
+    "start": 212.291,
+    "duration": 2.878
+}, {
+    "text": "you\u2019ll inevitably either place a stone\non pedestal 1 or pedestal 100",
+    "start": 215.169,
+    "duration": 5.172
+}, {
+    "text": "before you reach the keystone.",
+    "start": 220.341,
+    "duration": 1.752
+}, {
+    "text": "That\u2019s all that determines whether\nyou succeed or fail,",
+    "start": 222.385,
+    "duration": 2.919
+}, {
+    "text": "and critically, the chances \nof those events are equal.",
+    "start": 225.304,
+    "duration": 3.545
+}, {
+    "text": "This can be unintuitive,\nso let\u2019s imagine another, similar game.",
+    "start": 229.433,
+    "duration": 4.004
+}, {
+    "text": "Say Drumbledrore magically generates \nnumbers from 1 to 100.",
+    "start": 233.562,
+    "duration": 4.004
+}, {
+    "text": "If it\u2019s a 1, you win.",
+    "start": 237.566,
+    "duration": 1.585
+}, {
+    "text": "If it\u2019s 100, you lose.",
+    "start": 239.151,
+    "duration": 1.919
+}, {
+    "text": "If it\u2019s anything else, he picks again.",
+    "start": 241.279,
+    "duration": 2.502
+}, {
+    "text": "Since the odds of winning by getting 1\nare the same as losing by getting a 100,",
+    "start": 244.073,
+    "duration": 5.214
+}, {
+    "text": "this is a game you\u2019re just as likely\nto win as to lose.",
+    "start": 249.287,
+    "duration": 3.628
+}, {
+    "text": "It might take a while, but the delays\ndon\u2019t give an advantage",
+    "start": 253.249,
+    "duration": 3.295
+}, {
+    "text": "to getting a 1 before 100,\nor vice versa.",
+    "start": 256.544,
+    "duration": 3.086
+}, {
+    "text": "The same essential reasoning\napplies to our situation.",
+    "start": 259.797,
+    "duration": 3.295
+}, {
+    "text": "You\u2019re debating whether it\u2019s worth\nrisking a 50/50 chance of a cave-in",
+    "start": 263.884,
+    "duration": 4.422
+}, {
+    "text": "when Drumbledrore reveals \nhis secret weapon:",
+    "start": 268.306,
+    "duration": 3.044
+}, {
+    "text": "a rare felush felucious potion,",
+    "start": 271.726,
+    "duration": 2.544
+}, {
+    "text": "which grants extraordinary luck\nfor a brief period of time.",
+    "start": 274.27,
+    "duration": 3.754
+}, {
+    "text": "There\u2019s a 1 in 100 chance \nthe keystone\u2019s platform was taken",
+    "start": 278.274,
+    "duration": 3.962
+}, {
+    "text": "by the first stone \nand you\u2019ve lost already,",
+    "start": 282.236,
+    "duration": 2.628
+}, {
+    "text": "but otherwise, you\u2019ve got even odds\nto win or lose.",
+    "start": 285.031,
+    "duration": 4.045
+}, {
+    "text": "And right now, you\u2019re feeling lucky.",
+    "start": 289.243,
+    "duration": 2.377
+}]

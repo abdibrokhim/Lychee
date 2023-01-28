@@ -1,0 +1,168 @@
+:root {
+  --dark-bg-color: #282c34;
+  --light-bg-color: rgb(255, 254, 252);
+  --link-text-color: #149eca;
+  --light-text-color: #f6f7f9;
+  --dark-text-color: #000000;
+}
+
+.Home {
+  text-align: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.youtube_link_handler {
+  padding: 10px, 20px, 10px, 20px;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  font-size: 20px;
+  outline: none;
+  border: none;
+}
+
+.Content {
+  height: 100vh;
+  /* background-color: #0F0F0F; */
+}
+
+.RightSide {
+  font-size: 16px;
+  /* background-color: rgba(33, 33, 33, 0.98); */
+  border-radius: 10px;
+}
+
+.Transcript {
+  /* height: 230px; */
+  /* height: calc(40vh - 50px); */
+  height: calc(50vh - 5px);
+  overflow-y: scroll;
+  background-color: rgba(33, 33, 33, 0.98);
+  color: white;
+  border-radius: 10px;
+}
+
+.ChatSide {
+  background-color: rgba(33, 33, 33, 0.98);
+  border-radius: 10px;
+  height: 600px;
+  overflow: scroll;
+}
+
+.ButtonSide {
+  background-color: rgba(33, 33, 33, 0.98);
+  border-radius: 10px;
+  margin-top: 15px;
+  height: 150px;
+}
+
+.btn-danger {
+  font-size: 14px;
+  background-color: #ba0b32;
+  color: var(--light-text-color);
+}
+
+.btn-danger:hover {
+  background-color: #9a0d2b;
+  color: white;
+}
+
+#flexSwitchCheckChecked:focus {
+  box-shadow: none;
+}
+
+/* 
+.navbar {
+  border-bottom: 0.05px solid #ba0b32;
+} */
+
+.Transcript::-webkit-scrollbar{
+  display: none;
+}
+
+.ChatSide::-webkit-scrollbar{
+  display: none;
+}
+
+.ButtonSide::-webkit-scrollbar{
+  display: none;
+}
+
+/* .Transcript::-webkit-scrollbar {
+  margin-top: 20px;
+  width: 10px;
+}
+
+.Transcript::-webkit-scrollbar-thumb {
+  background: rgba(170, 170, 170, 0.98);
+  border-radius: 10px;
+} */
+
+.Transcript-text {
+  font-size: 16px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.Video iframe {
+  border-radius: 10px;
+  width: 100%;
+  height: 360px;
+}
+
+.msg-splitter {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 1px;
+  width: 100%;
+  background-color: rgba(95, 95, 95, 0.98);
+}
+
+.textarea {
+  max-height: 200px; 
+  height: 24px;
+  overflow-y: hidden;
+  outline: none;
+}
+
+.highlight:hover {
+  background-color: #ba0b32;
+}
+
+/* HomePage.js */
+
+.title {
+  color: #040404;
+  font-size: 10rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  color: #00000099;
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+#search_input {
+  /* font-size: 16px; */
+  font-size: 1.4rem;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 300px;
+  padding: 10px 20px;
+  color: black;
+}
+
+@media screen and (max-height: 700px) {
+  .Transcript {
+    /* height: calc(60vh - 50px); */
+    height: calc(40vh + 10px);
+  }
+  .ChatSide {
+    height: 500px;
+  }
+}
