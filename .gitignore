@@ -1,0 +1,7 @@
+.idea
+.env
+
+backend/env/
+backend/__pychache__/
+
+.dccache
