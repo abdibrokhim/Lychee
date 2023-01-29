@@ -32,7 +32,7 @@ function LandingPage() {
                                 className="d-inline-block pt-1 pb-1 ps-3 pe-3" 
                                 style={{backgroundColor: colors.const_brand_name,
                                     color: colors.const_light_text
-                                }}>Ask questions. Get a summary. Get a summary.</div>
+                                }}>Ask questions. Get a summary. Quiz yourself.</div>
                             {/* <div 
                                 className="d-inline-block p-2" 
                                 style={{backgroundColor: colors.const_brand_name,
