@@ -10,10 +10,11 @@ import transcriptJson from ".././transcripts/script.json";
 // import icons from '.././Icons';
 import colors from '.././colors';
 
+// apiKey: "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",
 
 const ChatGPT = () => {
     const configuration = new Configuration({
-        apiKey: "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",
+        apiKey: "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",
     });
     const openai = new OpenAIApi(configuration);
 
@@ -293,6 +294,7 @@ const ChatGPT = () => {
                                     key={i}
                                     isAnswer={item.isAnswer}
                                     content={item.content}
+                                    time={item.time}
                                 />
                             ))}
                         </ul>
@@ -356,7 +358,7 @@ const ChatGPT = () => {
                                 id="flexSwitchCheckChecked" />
                             <label 
                                 className="form-check-label" 
-                                for="flexSwitchCheckChecked"
+                                htmlFor="flexSwitchCheckChecked"
                                 style={{color: colors.const_light_text}}
                                 >
                                 Enable Memory</label>

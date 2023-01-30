@@ -1,127 +1,140 @@
 import React, { useState, useEffect } from 'react';
 import { Configuration, OpenAIApi } from "openai";
+// import { useParams } from "react-router-dom";
 // import SpeechOutput from './SpeechOutput';
 // import SpeechInput from './SpeechInput';
 // import outputAudio from '.././audios/output.wav';
 // import openai_logo from '.././openai-logo.png';
 import '.././App.css';
 import transcriptJson from ".././transcripts/script.json";
-import axios from "axios";
 // import { Markdown } from 'react-markdown';
-// import icons from '.././Icons'
+// import icons from '.././Icons';
+import colors from '.././colors';
 
 
 const ChatSonic = () => {
     const configuration = new Configuration({
-        apiKey: "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",
+        apiKey: "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",
     });
     const openai = new OpenAIApi(configuration);
 
     const [input, setInput] = useState("");
     // const [result, setResult] = useState("");
-    const [userInput, setUserInput] = useState("");
+    // const [userInput, setUserInput] = useState("");
     // const [logo, setLogo] = useState("");
     const [transcript, setTranscript] = useState("");
     const [loading, setLoading] = useState(false);
     const [chatItems, setChatItems] = useState([]);
+    const [memory, setMemory] = useState(false);
+    // const [quizMeItems, setQuizMeItems] = useState([]);
     // const [text, setText] = useState('');
-    const [responseData, setResponseData] = useState(null);
 
     // const [markdownText, setMarkdownText] = useState('');
 
-    const summarizeText = "I am coming up with a summary..."
-    const quizMeText = "I am coming up with a quiz..."
+    const summarizeText = "I am coming up with a summary...";
+    const quizMeText = "I am coming up with a quiz...";
+    const quizMeMode = "\n\nCan you send single multiple choice question related to the Article?  without revealing answer";
+    const articleText = "\nHere is Article:\n";
+    // const quizMeMode = "\n\nsend quiz questions related to the Article\n";
+    const summarizeMode = "\n\nSummarize the Article\n";
 
-    // const axios = require('axios');
+    const meantionedStartDurationText = 'Where it was mentioned can you give start and duration? use format "start": 0.00 seconds, "duration": 0.00 seconds';
 
-    // useEffect(() => {
-    //     const options = {
-    //         method: 'POST',
-    //         url: 'https://api.writesonic.com/v2/business/content/chatsonic?engine=premium',
-    //         headers: {
-    //             accept: 'application/json',
-    //             'content-type': 'application/json',
-    //             'X-API-KEY': '4259d828-4fb4-4e2c-9a45-ed18e2d86cab'
-    //         },
-    //         data: {
-    //             enable_google_results: 'true', 
-    //             enable_memory: true, 
-    //             input_text: "\nHere is Topic:\n"+transcript.map((item) => item).join('\n')+'\n\n'+userInput,
-    //         }
-    //     };
-        
-    //     axios
-    //         .request(options)
-    //         .then(function (response) {
-    //             console.log(response.data);
-    //         })
-    //         .catch(function (error) {
-    //             console.error(error);
-    //         });
-    // }, [userInput, transcript, axios]);
+
+    const splitIntoParagraphs = (text) => {
+        const paragraphs = text.split(".");
+        return paragraphs;
+    };
+    
+    const getStartDuration = (text) => {
+        const start = text.toLowerCase().match(/start: (.*?) /);
+        // const duration = text.toLowerCase().match(/"duration": (.*?) /);
+        // return {start: start[1], duration: duration[1]};
+        if (start) return start[1];
+        console.log('--------start--------');
+        console.log(start);
+        return "";
+    };
+
+    const compare = async (prompt) => {
+
+        // const memoryOn = transcript.map((item) => item).join('\n')+'\n'+chatItems.map((item) => item.content).join('\n')+'\n';
+        const memoryOff = transcript.map((item) => item).join('\n')+"\n\n"+prompt+'\n\n'+meantionedStartDurationText+'\n';
+
+        const response = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: memoryOff,
+            temperature: 0.8,
+            max_tokens: 256,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0,
+        });
+
+        console.log(response.data.choices[0].text);
+
+        return response.data.choices[0].text;
+    };
+    // let { id } = useParams();
+    let id = "";
+
+    const [timeSt, setTimeSt] = React.useState(0.00);
+    // const [isRef, setIsRef] = React.useState(false);
+
+    const videoURL = React.useRef(`https://www.youtube.com/watch?v=${id}`);
+    // let videoURL = `https://www.youtube.com/watch?v=${id}`;
+
+    React.useEffect(() => {
+        videoURL.current = `${id}&t=${timeSt}s`;
+        console.log(videoURL);
+    }, [timeSt, id]);
+
+
+    const timeFunc = (e) => {
+        console.log(e.target.id);
+        setTimeSt(e.target.id);
+    }
+
+    const refTimeStamp = (start) => {
+        // setIsRef(true);
+        const ref = `[ref${start}]`;
+
+        return (
+            <span
+                onClick={timeFunc}
+                className="me-2 highlight d-inline" 
+                id={start} 
+                style={{cursor: "pointer"}}
+                >
+                {ref}
+            </span>
+        );
+    };
 
     const completion = async () => {
+        const memoryOn = transcript.map((item) => item).join('\n')+'\n'+chatItems.map((item) => item.content).join('\n')+'\n';
+        const memoryOff = transcript.map((item) => item).join('\n')+'\n'+input+'\n';
+
         setLoading(true);
         // handleTranscript();
         // setLogo(userLogo);
         // setText('');
-        setUserInput(input);
+        // setUserInput(input);
         console.log(input);
 
         console.log('--------chatItems--------');
-        console.log(chatItems);
+        // console.log(chatItems);
         console.log('---------transcript-------');
         // console.log(transcript);
         console.log('--------all--------');
-        console.log("\nHere is Topic:\n"+transcript.map((item) => item).join('\n')+'\n');
+        console.log(memory ? memoryOn : memoryOff);
         console.log('--------end--------');
 
-        const options = {
-            method: 'POST',
-            url: 'https://api.writesonic.com/v2/business/content/chatsonic?engine=premium',
-            headers: {
-              accept: 'application/json',
-              'content-type': 'application/json',
-              'X-API-KEY': '4259d828-4fb4-4e2c-9a45-ed18e2d86cab'
-            },
-            data: {enable_google_results: 'true', enable_memory: true, input_text: "\nHere is Topic:\n"+transcript.map((item) => item).join('\n')+'\n\n'+userInput}
-        };
-        
-        try {
-            const response = await axios.request(options);
-            setResponseData(response.data);
-        } catch (error) {
-            console.error(error);
-        }
 
-        // setLogo(opeanaiLogo);
-        // setChatItems([
-        //     ...chatItems,
-        //     { content: response.data.choices[0].text, isAnswer: true },]);
-        
-        console.log('--------responseData--------');
-        console.log(responseData);
-        console.log('--------responseData--------');
-        setLoading(false);
-        setInput('');
-        
-        setUserInput('');
-    }
-
-    const quizMe = async () => {
-        setChatItems([
-            ...chatItems,
-            { content: quizMeText, isAnswer: false },]);
-        setLoading(true);
-        // handleTranscript();
-        
-        const quiz = transcript+"\n\nsend multiple choice questions related to the topic"
-        // setUserInput(quiz);
-        console.log(quiz);
         const response = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: quiz,
-            temperature: 0.7,
+            prompt: memory ? memoryOn : memoryOff,
+            temperature: 0.8,
             max_tokens: 256,
             top_p: 1,
             frequency_penalty: 0,
@@ -133,23 +146,58 @@ const ChatSonic = () => {
         setChatItems([
             ...chatItems,
             { content: response.data.choices[0].text, isAnswer: true },]);
+        setLoading(false);
+        setInput('');
+    }
+
+    const quizMe = async () => {
+        setChatItems([
+            ...chatItems,
+            { content: quizMeText, isAnswer: true },]);
+        setLoading(true);
+        // handleTranscript();
+        
+        const quiz = articleText+transcript.map((item) => item).join('\n')+'\n\n'+quizMeMode
+        // setUserInput(quiz);
+        console.log(quiz);
+        const response = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: quiz,
+            temperature: 0.8,
+            max_tokens: 256,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0,
+        });
+
+        console.log(response.data.choices[0].text);
+        let a = response.data.choices[0].text.replace('Q.', '').replace('Q:', '');
+
+        // if (response.data.choices[0].text.includes('1.')) {
+        //     let b = response.data.choices[0].text.split('2.').split('2:')[0];
+        //     a = b;
+        // }
+        // setLogo(opeanaiLogo);
+        setChatItems([
+            ...chatItems,
+            { content: a, isAnswer: true },]);
         setLoading(false);
     }
     
     const summarize = async () => {
         setChatItems([
             ...chatItems,
-            { content: summarizeText, isAnswer: false },]);
+            { content: summarizeText, time: "", isAnswer: true },]);
         setLoading(true);
         // handleTranscript();
 
-        const summary = transcript+"\n\nsummarize the topic"
+        const summary = articleText+transcript.map((item) => item).join('\n')+'\n\n'+summarizeMode
         // setUserInput(summary);
         console.log(summary);
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: summary,
-            temperature: 0.7,
+            temperature: 0.8,
             max_tokens: 256,
             top_p: 1,
             frequency_penalty: 0,
@@ -157,10 +205,28 @@ const ChatSonic = () => {
         });
 
         console.log(response.data.choices[0].text);
+
+        let splittedParagraphs = splitIntoParagraphs(response.data.choices[0].text);
+        console.log('--------splittedParagraphs--------');
+        console.log(splittedParagraphs);
+
+        for (let i = 0; i < splittedParagraphs.length; i++) {
+            let c = await compare(splittedParagraphs[i]);
+            console.log('--------compare--------');
+            console.log(c);
+            
+            let t = getStartDuration(c);
+            console.log('--------getStartDuration--------');
+            console.log(t);
+            setChatItems([
+                ...chatItems,
+                { content: splittedParagraphs[i], time: t, isAnswer: true },]);
+        }
+
         // setLogo(opeanaiLogo);
-        setChatItems([
-            ...chatItems,
-            { content: response.data.choices[0].text, isAnswer: true },]);
+        // setChatItems([
+        //     ...chatItems,
+        //     { content: response.data.choices[0].text, isAnswer: true },]);
         setLoading(false);
     }
 
@@ -192,31 +258,37 @@ const ChatSonic = () => {
         setChatItems([...chatItems, { content: input, isAnswer: false }]);
     }
 
-    const ChatItem = ({ isAnswer, content }) => {
-        // const userLogo = (
-        //     <div className='w-[30px] flex flex-col relative items-start'>
-        //         {userSvg}
-        //     </div>
-        // );
+    const ChatItem = ({ isAnswer, content, time }) => {
+        const userLogo = (
+            <div className='w-[30px] flex flex-col relative items-start'>
+                {userSvg}
+            </div>
+        );
 
-        // const aiLogo = (
-        //     <div className='w-[30px] flex flex-col relative items-start'>
-        //         {opeanaiLogo}
-        //     </div>
-        // );
+        const aiLogo = (
+            <div className='w-[30px] flex flex-col relative items-start'>
+                {lycheeLogo}
+            </div>
+        );
 
         return (
-          <li className={`flex ${isAnswer ? "justify-start" : "justify-start"}`}>
-            {/* {isAnswer ? aiLogo : userLogo} */}
-            <div
-              className={`relative max-w-xl px-4 py-2 text-white rounded shadow ${
-                !isAnswer ? "bg-none text-white" : ""
-              }`} style={{whiteSpace: 'pre-wrap'}}>
-                {content.trimStart()}
-            </div>
-          </li>
+            <li className='flex py-3 justify-start'>
+                {isAnswer ? aiLogo : userLogo}
+                <div
+                    className='relative max-w-xl px-4 text-white rounded shadow bg-none text-white'
+                    style={{whiteSpace: 'pre-wrap'}}>
+                    {content.trimStart()}
+                    {time.length > 0 ? refTimeStamp(time) : <></>}
+                </div>
+            </li>
         );
     };
+
+    const toggleMemory = () => {
+        // setLoading(true);
+        setMemory(!memory);
+        console.log(!memory);
+    }
 
     const sendIcon = (
         <svg
@@ -224,7 +296,7 @@ const ChatSonic = () => {
           fill="currentColor"
           strokeWidth="0"
           viewBox="0 0 20 20"
-          className="h-4 w-4 rotate-90"
+          className="rotate-45"
           height="1em"
           width="1em"
           xmlns="http://www.w3.org/2000/svg">
@@ -258,21 +330,49 @@ const ChatSonic = () => {
     //     </svg>
     // );
 
-    // const userSvg = (
-    //     <svg 
-    //         xmlns="http://www.w3.org/2000/svg" 
-    //         width="24" 
-    //         height="24" 
-    //         viewBox="0 0 24 24" 
-    //         fill="none">
-    //         <circle cx="12" cy="10" r="4" stroke="#ffffff" strokeLinecap="round"/>
-    //         <circle cx="12" cy="12" r="12" stroke="#ffffff"/>
-    //         <path 
-    //             d="M18 18.7059C17.6461 17.6427 16.8662 16.7033 15.7814 16.0332C14.6966 15.3632 13.3674 15 12 15C10.6326 15 9.30341 15.3632 8.21858 16.0332C7.13375 16.7033 6.35391 17.6427 6 18.7059" 
-    //             stroke="#ffffff" 
-    //             strokeLinecap="round"/>
-    //     </svg>
-    // );
+    const lycheeLogo = (
+        <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            version="1.0" 
+            width="36" 
+            height="36" 
+            viewBox="80 100 500.000000 500.000000" 
+            preserveAspectRatio="xMidYMid meet">
+            <g 
+            transform="translate(0.000000,500.000000) scale(0.100000,-0.100000)" 
+            fill="#ffffff" 
+            stroke="none">
+                <path 
+                    d="M2285 3839 c-279 -40 -518 -131 -666 -253 -45 -37 -98 -67 -165 -95 -325 -136 -554 -356 -571 -552 -5 -51 -10 -63 -35 -80 -35 -25 -68 -88 -68 -129 0 -40 32 -103 64 -123 l25 -17 -24 -36 c-47 -69 -25 -166 46 -207 21 -12 39 -25 39 -30 0 -4 -9 -24 -20 -44 -63 -117 25 -281 160 -299 53 -7 58 -14 35 -54 -24 -42 -18 -109 15 -167 24 -42 40 -56 86 -78 57 -27 90 -29 160 -9 19 5 21 2 20 -53 -1 -102 66 -175 162 -175 l47 0 20 -52 c38 -98 157 -145 251 -100 34 16 36 16 63 -10 41 -39 89 -50 143 -32 l43 15 40 -38 c78 -76 174 -92 269 -45 51 25 55 25 84 10 60 -31 165 -14 191 31 9 17 12 17 58 0 79 -28 145 -18 210 33 19 15 41 20 85 20 92 0 168 43 202 114 l16 34 60 -5 c43 -4 72 -1 104 11 52 20 114 84 122 125 6 29 7 29 64 24 76 -7 103 0 149 43 47 42 68 108 51 164 -15 51 -13 57 18 63 79 17 136 93 131 175 -3 45 -2 47 29 53 65 13 96 74 75 144 -9 30 -8 36 13 54 35 31 43 87 20 141 -4 10 4 21 24 32 34 20 48 60 32 100 -9 25 -7 31 24 62 40 40 45 80 13 120 l-21 26 21 34 c12 18 21 44 21 57 0 33 -35 88 -63 98 -16 6 -26 23 -35 57 -50 187 -279 386 -579 503 -29 11 -85 48 -124 80 -208 175 -538 273 -911 270 -90 -1 -190 -5 -223 -10z m836 -275 c157 -47 293 -213 294 -360 0 -51 -4 -66 -28 -97 -49 -64 -70 -54 -162 77 -71 102 -97 129 -202 207 -52 39 -97 77 -100 85 -12 32 8 65 50 84 52 24 78 25 148 4z m-1716 -251 c-30 -72 -49 -199 -40 -257 15 -88 85 -180 195 -256 77 -52 140 -83 258 -124 583 -203 1422 -107 1736 198 58 57 97 134 103 207 6 59 -16 180 -43 246 -9 19 -13 37 -10 40 6 6 120 -56 186 -101 241 -163 315 -397 188 -591 -158 -241 -582 -424 -1124 -486 -142 -17 -547 -17 -694 0 -164 18 -392 65 -523 107 -123 40 -334 136 -394 180 -192 143 -263 252 -263 404 0 175 119 322 372 460 40 21 73 38 75 37 1 -2 -9 -30 -22 -64z"/>
+            </g>
+        </svg>
+    );
+
+    const userSvg = (
+        <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24"
+            fill="none">
+            <circle cx="12" cy="10" r="4" stroke="#ffffff" strokeLinecap="round"/>
+            <circle cx="12" cy="12" r="12" stroke="#ffffff"/>
+            <path 
+                d="M18 18.7059C17.6461 17.6427 16.8662 16.7033 15.7814 16.0332C14.6966 15.3632 13.3674 15 12 15C10.6326 15 9.30341 15.3632 8.21858 16.0332C7.13375 16.7033 6.35391 17.6427 6 18.7059" 
+                stroke="#ffffff" 
+                strokeLinecap="round"/>
+        </svg>
+    );
+
+    const bgRed = {
+        backgroundColor: colors.const_brand_name,
+        border: `1px solid ${colors.const_brand_name}`,
+    };
+
+    const bgLight = {
+        backgroundColor: colors.const_light_text,
+        border: `1px solid ${colors.const_brand_name}`,
+    };
     
     return (
         <div className='RightSide col'>
@@ -285,6 +385,7 @@ const ChatSonic = () => {
                                     key={i}
                                     isAnswer={item.isAnswer}
                                     content={item.content}
+                                    time={item.time}
                                 />
                             ))}
                         </ul>
@@ -325,18 +426,34 @@ const ChatSonic = () => {
                     <div className='pt-3 d-flex gap-3'>
                         <button 
                             disabled={loading}
-                            className='btn btn-primary'
+                            className='btn btn-danger pt-2 pb-2 ps-3 pe-3'
                             onClick={quizMe}>
                             Quiz me
                         </button>
                         <button 
                             disabled={loading}
-                            className='btn btn-primary'
+                            className='btn btn-danger pt-2 pb-2 ps-3 pe-3'
                             onClick={summarize}>
                             Summarize
                         </button>
                         {/* <SpeechOutput url={outputAudio}/> */}
                         {/* <SpeechInput /> */}
+                        <div 
+                            className="form-check form-switch">
+                            <input 
+                                onClick={toggleMemory}
+                                className="form-check-input"
+                                style={memory ? bgRed : bgLight}
+                                type="checkbox" 
+                                role="switch" 
+                                id="flexSwitchCheckChecked" />
+                            <label 
+                                className="form-check-label" 
+                                htmlFor="flexSwitchCheckChecked"
+                                style={{color: colors.const_light_text}}
+                                >
+                                Enable Memory</label>
+                        </div>
                     </div>
                 </div>
             </div>
