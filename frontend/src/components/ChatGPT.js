@@ -11,6 +11,9 @@ import transcriptJson from ".././transcripts/script.json";
 import colors from '.././colors';
 
 // apiKey: "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",
+// apiKey: "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",
+// apiKey: "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",
+// apiKey: "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",
 
 const ChatGPT = () => {
     const configuration = new Configuration({
@@ -294,7 +297,6 @@ const ChatGPT = () => {
                                     key={i}
                                     isAnswer={item.isAnswer}
                                     content={item.content}
-                                    time={item.time}
                                 />
                             ))}
                         </ul>

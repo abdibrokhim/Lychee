@@ -10,11 +10,17 @@ import transcriptJson from ".././transcripts/script.json";
 // import { Markdown } from 'react-markdown';
 // import icons from '.././Icons';
 import colors from '.././colors';
+import genWords from '../generalWords';
+
+
+// apiKey: "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",
+// apiKey: "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",
+// apiKey: "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",
 
 
 const ChatSonic = () => {
     const configuration = new Configuration({
-        apiKey: "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",
+        apiKey: "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",
     });
     const openai = new OpenAIApi(configuration);
 
@@ -34,11 +40,11 @@ const ChatSonic = () => {
     const summarizeText = "I am coming up with a summary...";
     const quizMeText = "I am coming up with a quiz...";
     const quizMeMode = "\n\nCan you send single multiple choice question related to the Article?  without revealing answer";
-    const articleText = "\nHere is Article:\n";
+    const articleText = "\nHere is the Article:\n";
     // const quizMeMode = "\n\nsend quiz questions related to the Article\n";
     const summarizeMode = "\n\nSummarize the Article\n";
 
-    const meantionedStartDurationText = 'Where it was mentioned can you give start and duration? use format "start": 0.00 seconds, "duration": 0.00 seconds';
+    const meantionedStartDurationText = 'Now give more detailed answer for each paragraph. Where it was mentioned, Give start and duration. Stricly use this format "start": 0.00 seconds, "duration": 0.00 seconds';
 
 
     const splitIntoParagraphs = (text) => {
@@ -103,6 +109,7 @@ const ChatSonic = () => {
             <span
                 onClick={timeFunc}
                 className="me-2 highlight d-inline" 
+                key={start}
                 id={start} 
                 style={{cursor: "pointer"}}
                 >
@@ -111,11 +118,43 @@ const ChatSonic = () => {
         );
     };
 
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setLoading(false);
+    //     }, 2000);
+    // }, []);
+
+    // const getResponse = (input) => {
+    //     for (const [key, values] of Object.entries(genWords[0])) {
+    //         if (input.toLowerCase().includes(key)) {
+    //             const randomIndex = Math.floor(Math.random() * values.length);
+    //             return values[randomIndex];
+    //         }
+    //     }
+    //     return "I don't understand what you're asking.";
+    // };
+      
+
     const completion = async () => {
+        setLoading(true);
+
+        // check user input for simple english words
+        setTimeout(() => {
+            for (const [key, values] of Object.entries(genWords[0])) {
+                if (input.toLowerCase().includes(key)) {
+                    const randomIndex = Math.floor(Math.random() * values.length);
+                    setChatItems([
+                        ...chatItems,
+                        { content: values[randomIndex], time: '', isAnswer: true },]);
+                    setLoading(false);
+                    return ;
+                }
+            }
+        }, 2000);
+
         const memoryOn = transcript.map((item) => item).join('\n')+'\n'+chatItems.map((item) => item.content).join('\n')+'\n';
         const memoryOff = transcript.map((item) => item).join('\n')+'\n'+input+'\n';
 
-        setLoading(true);
         // handleTranscript();
         // setLogo(userLogo);
         // setText('');
@@ -126,8 +165,7 @@ const ChatSonic = () => {
         // console.log(chatItems);
         console.log('---------transcript-------');
         // console.log(transcript);
-        console.log('--------all--------');
-        console.log(memory ? memoryOn : memoryOff);
+        console.log('memory: ', memory);
         console.log('--------end--------');
 
 
@@ -141,11 +179,11 @@ const ChatSonic = () => {
             presence_penalty: 0,
         });
 
-        console.log(response.data.choices[0].text);
+        console.log('response: ', response.data.choices[0].text);
         // setLogo(opeanaiLogo);
         setChatItems([
             ...chatItems,
-            { content: response.data.choices[0].text, isAnswer: true },]);
+            { content: response.data.choices[0].text, time: '', isAnswer: true },]);
         setLoading(false);
         setInput('');
     }
@@ -153,7 +191,7 @@ const ChatSonic = () => {
     const quizMe = async () => {
         setChatItems([
             ...chatItems,
-            { content: quizMeText, isAnswer: true },]);
+            { content: quizMeText, time: '', isAnswer: true },]);
         setLoading(true);
         // handleTranscript();
         
@@ -171,7 +209,17 @@ const ChatSonic = () => {
         });
 
         console.log(response.data.choices[0].text);
-        let a = response.data.choices[0].text.replace('Q.', '').replace('Q:', '');
+        let a = response.data.choices[0].text
+            .replace('Q.', '')
+            .replace('Q:', '')
+            .replace('a)', 'A.')
+            .replace('b)', 'B.')
+            .replace('c)', 'C.')
+            .replace('d)', 'D.')
+            .replace('a.', 'A.')
+            .replace('b.', 'B.')
+            .replace('c.', 'C.')
+            .replace('d.', 'D.');
 
         // if (response.data.choices[0].text.includes('1.')) {
         //     let b = response.data.choices[0].text.split('2.').split('2:')[0];
@@ -180,7 +228,7 @@ const ChatSonic = () => {
         // setLogo(opeanaiLogo);
         setChatItems([
             ...chatItems,
-            { content: a, isAnswer: true },]);
+            { content: a, time: '', isAnswer: true },]);
         setLoading(false);
     }
     
@@ -255,7 +303,7 @@ const ChatSonic = () => {
     
         // elChatList.appendChild(getChatItem(input, false));
         // elChatList.appendChild(getChatItem(input, false));
-        setChatItems([...chatItems, { content: input, isAnswer: false }]);
+        setChatItems([...chatItems, { content: input, time: '', isAnswer: false }]);
     }
 
     const ChatItem = ({ isAnswer, content, time }) => {
@@ -275,10 +323,10 @@ const ChatSonic = () => {
             <li className='flex py-3 justify-start'>
                 {isAnswer ? aiLogo : userLogo}
                 <div
-                    className='relative max-w-xl px-4 text-white rounded shadow bg-none text-white'
+                    className='relative max-w-xl px-4 rounded shadow bg-none text-white'
                     style={{whiteSpace: 'pre-wrap'}}>
                     {content.trimStart()}
-                    {time.length > 0 ? refTimeStamp(time) : <></>}
+                    {time ? refTimeStamp(time) : <></>}
                 </div>
             </li>
         );
