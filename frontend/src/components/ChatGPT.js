@@ -9,6 +9,7 @@ import transcriptJson from ".././transcripts/script.json";
 // import { Markdown } from 'react-markdown';
 // import icons from '.././Icons';
 import colors from '.././colors';
+import genWords from '../generalWords';
 
 // apiKey: "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",
 // apiKey: "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",
@@ -17,7 +18,7 @@ import colors from '.././colors';
 
 const ChatGPT = () => {
     const configuration = new Configuration({
-        apiKey: "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",
+        apiKey: "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",
     });
     const openai = new OpenAIApi(configuration);
 
@@ -42,10 +43,25 @@ const ChatGPT = () => {
     const summarizeMode = "\n\nsummarize the Article\n";
 
     const completion = async () => {
+        setLoading(true);
+
+        // check user input for simple english words
+        setTimeout(() => {
+            for (const [key, values] of Object.entries(genWords[0])) {
+                if (input.toLowerCase().includes(key)) {
+                    const randomIndex = Math.floor(Math.random() * values.length);
+                    setChatItems([
+                        ...chatItems,
+                        { content: values[randomIndex], time: '', isAnswer: true },]);
+                    setLoading(false);
+                    return ;
+                }
+            }
+        }, 2000);
+
         const memoryOn = transcript.map((item) => item).join('\n')+'\n'+chatItems.map((item) => item.content).join('\n')+'\n';
         const memoryOff = transcript.map((item) => item).join('\n')+'\n'+input+'\n';
 
-        setLoading(true);
         // handleTranscript();
         // setLogo(userLogo);
         // setText('');
@@ -290,7 +306,7 @@ const ChatGPT = () => {
         <div className='RightSide col'>
             <div className="ChatSide p-3">
                 <div className="flex-1 overflow-auto">
-                    <div className="overflow-auto stretch mx-5 flex flex-row gap-3 pt-2 last:mb-2 md:last:mb-6 lg:mx-auto mx-auto lg:max-w-3xl lg:pt-6">
+                    <div className="overflow-auto stretch flex flex-row gap-3 pt-2 last:mb-2 md:last:mb-6 lg:mx-auto mx-auto lg:max-w-3xl lg:pt-6">
                         <ul className="ml-5 space-y-2 w-ful text-white overflow-auto">
                             {chatItems.map((item, i) => (
                                 <ChatItem
@@ -309,7 +325,7 @@ const ChatGPT = () => {
                     <form
                         onSubmit={handleSubmit}
                         data-chat-form
-                        className="stretch mx-2 flex flex-row gap-3 pt-2 last:mb-2 mx-auto md:last:mb-6 lg:mx-auto lg:max-w-3xl lg:pt-6">
+                        className="stretch flex flex-row gap-3 pt-2 last:mb-2 mx-auto md:last:mb-6 lg:mx-auto lg:max-w-3xl lg:pt-6">
                         <div className="relative flex h-full flex-1 md:flex-col">
                             <div className="ml-1 mt-1.5 md:w-full md:m-auto md:flex md:mb-2 gap-2 justify-center"></div>
                             <div 

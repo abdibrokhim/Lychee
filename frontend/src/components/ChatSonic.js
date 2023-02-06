@@ -20,7 +20,7 @@ import genWords from '../generalWords';
 
 const ChatSonic = () => {
     const configuration = new Configuration({
-        apiKey: "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",
+        apiKey: "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",
     });
     const openai = new OpenAIApi(configuration);
 
@@ -44,7 +44,7 @@ const ChatSonic = () => {
     // const quizMeMode = "\n\nsend quiz questions related to the Article\n";
     const summarizeMode = "\n\nSummarize the Article\n";
 
-    const meantionedStartDurationText = 'Now give more detailed answer for each paragraph. Where it was mentioned, Give start and duration. Stricly use this format "start": 0.00 seconds, "duration": 0.00 seconds';
+    const meantionedStartDurationText = 'Now give more detailed answer for each paragraph. Where it was mentioned, Give starting time. Stricly use this format "start": 0.00 seconds.';
 
 
     const splitIntoParagraphs = (text) => {
@@ -53,13 +53,15 @@ const ChatSonic = () => {
     };
     
     const getStartDuration = (text) => {
-        const start = text.toLowerCase().match(/start: (.*?) /);
-        // const duration = text.toLowerCase().match(/"duration": (.*?) /);
-        // return {start: start[1], duration: duration[1]};
-        if (start) return start[1];
-        console.log('--------start--------');
-        console.log(start);
-        return "";
+        if (!text) return "";
+    
+        const startTimeRegex = /(?:start|Start): (\d+\.\d+)/;
+        const match = text.match(startTimeRegex);
+        if (!match) return "";
+
+        console.log('getStartDuration(): ', match[1]);
+    
+        return match[1];
     };
 
     const compare = async (prompt) => {
@@ -161,12 +163,12 @@ const ChatSonic = () => {
         // setUserInput(input);
         console.log(input);
 
-        console.log('--------chatItems--------');
+        // console.log('--------chatItems--------');
         // console.log(chatItems);
-        console.log('---------transcript-------');
+        // console.log('---------transcript-------');
         // console.log(transcript);
         console.log('memory: ', memory);
-        console.log('--------end--------');
+        console.log('-----------------------');
 
 
         const response = await openai.createCompletion({
@@ -219,7 +221,11 @@ const ChatSonic = () => {
             .replace('a.', 'A.')
             .replace('b.', 'B.')
             .replace('c.', 'C.')
-            .replace('d.', 'D.');
+            .replace('d.', 'D.')
+            .replace('a:', 'A.')
+            .replace('b:', 'B.')
+            .replace('c:', 'C.')
+            .replace('d:', 'D.');
 
         // if (response.data.choices[0].text.includes('1.')) {
         //     let b = response.data.choices[0].text.split('2.').split('2:')[0];
@@ -233,6 +239,7 @@ const ChatSonic = () => {
     }
     
     const summarize = async () => {
+        console.log('summarize');
         setChatItems([
             ...chatItems,
             { content: summarizeText, time: "", isAnswer: true },]);
@@ -257,24 +264,29 @@ const ChatSonic = () => {
         let splittedParagraphs = splitIntoParagraphs(response.data.choices[0].text);
         console.log('--------splittedParagraphs--------');
         console.log(splittedParagraphs);
+        console.log('-----------------------');
+
+        let content = [];
 
         for (let i = 0; i < splittedParagraphs.length; i++) {
             let c = await compare(splittedParagraphs[i]);
             console.log('--------compare--------');
             console.log(c);
+            console.log('-----------------------');
             
             let t = getStartDuration(c);
             console.log('--------getStartDuration--------');
-            console.log(t);
-            setChatItems([
-                ...chatItems,
-                { content: splittedParagraphs[i], time: t, isAnswer: true },]);
+            console.log('start time: ', t);
+            console.log('-----------------------');
+
+            content.push({ content: splittedParagraphs[i], time: t, isAnswer: true });
         }
+        
+        setChatItems([
+            ...chatItems, ...content,
+        ]);
 
         // setLogo(opeanaiLogo);
-        // setChatItems([
-        //     ...chatItems,
-        //     { content: response.data.choices[0].text, isAnswer: true },]);
         setLoading(false);
     }
 
@@ -303,7 +315,8 @@ const ChatSonic = () => {
     
         // elChatList.appendChild(getChatItem(input, false));
         // elChatList.appendChild(getChatItem(input, false));
-        setChatItems([...chatItems, { content: input, time: '', isAnswer: false }]);
+        setChatItems([...chatItems, 
+            { content: input, time: '', isAnswer: false }]);
     }
 
     const ChatItem = ({ isAnswer, content, time }) => {
@@ -326,7 +339,7 @@ const ChatSonic = () => {
                     className='relative max-w-xl px-4 rounded shadow bg-none text-white'
                     style={{whiteSpace: 'pre-wrap'}}>
                     {content.trimStart()}
-                    {time ? refTimeStamp(time) : <></>}
+                    {time.length > 0 ? refTimeStamp(time) : <></>}
                 </div>
             </li>
         );
@@ -476,13 +489,13 @@ const ChatSonic = () => {
                             disabled={loading}
                             className='btn btn-danger pt-2 pb-2 ps-3 pe-3'
                             onClick={quizMe}>
-                            Quiz me
+                                Quiz me
                         </button>
                         <button 
                             disabled={loading}
                             className='btn btn-danger pt-2 pb-2 ps-3 pe-3'
                             onClick={summarize}>
-                            Summarize
+                                Summarize
                         </button>
                         {/* <SpeechOutput url={outputAudio}/> */}
                         {/* <SpeechInput /> */}
@@ -491,16 +504,20 @@ const ChatSonic = () => {
                             <input 
                                 onClick={toggleMemory}
                                 className="form-check-input"
-                                style={memory ? bgRed : bgLight}
+                                style={
+                                    memory ? bgRed : bgLight
+                                }
                                 type="checkbox" 
                                 role="switch" 
                                 id="flexSwitchCheckChecked" />
                             <label 
                                 className="form-check-label" 
                                 htmlFor="flexSwitchCheckChecked"
-                                style={{color: colors.const_light_text}}
+                                style={{
+                                    color: colors.const_light_text
+                                }}
                                 >
-                                Enable Memory</label>
+                                    Enable Memory</label>
                         </div>
                     </div>
                 </div>

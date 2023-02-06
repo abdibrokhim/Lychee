@@ -5,9 +5,9 @@ import React from 'react';
 import '.././App.css';
 import Transcript from '.././components/Transcript';
 import TranscriptAxios from '.././components/TranscriptAxios';
-// import ChatGPT from "../components/ChatGPT";
+import ChatGPT from "../components/ChatGPT";
 import VideoPageNavBar from "../components/VideoPageNavBar";
-import ChatSonic from "../components/ChatSonic";
+// import ChatSonic from "../components/ChatSonic";
 // import CustomReactPlayer from "../components/CustomReactPlayer";
 import PuffLoader from "react-spinners/PuffLoader";
 import colors from ".././colors";
@@ -65,8 +65,8 @@ const Video = () => {
                                     videoID={id}
                                     />
                                 </div>
-                            {/* <ChatGPT /> */}
-                            <ChatSonic />
+                            <ChatGPT />
+                            {/* <ChatSonic /> */}
                         </div>
                     </div>
                 </>
