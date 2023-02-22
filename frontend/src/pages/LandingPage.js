@@ -30,7 +30,7 @@ function LandingPage() {
                             className="pt-1 pb-1 ps-3 pe-3 " 
                             style={{
                                 // backgroundColor: colors.const_brand_name,
-                                // color: colors.const_light_text
+                                // color: colors.const_light_text,
                                 fontSize: '22px',
                                 fontWeight: '500',
                             }}>
@@ -43,6 +43,21 @@ function LandingPage() {
                         </button>
                     </div>
                     <div
+                        className="mt-5 mb-5"
+                        >
+                        <a
+                            href="#howItWorks"
+                            style={{
+                                color: colors.const_dark_text,
+                                fontSize: '28px',
+                                fontWeight: '700',
+                            }}
+                            >
+                                How It Works?
+                        </a>
+                    </div>
+                    <div
+                        id="howItWorks"
                         className="featuredVideo d-flex justify-content-center mt-5" 
                         >
                             <iframe 
@@ -54,7 +69,7 @@ function LandingPage() {
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                     <div
-                        className="footer d-flex justify-center mt-5 pb-5 gap-3"
+                        className="footer d-flex justify-center mt-5 gap-3"
                         style={{
                             color: colors.const_dark_text,
                             fontSize: '16px',
@@ -84,6 +99,30 @@ function LandingPage() {
                             >
                                 Twitter
                         </a>
+                        <a 
+                            className='primaryHover'
+                            href='mailto: [abdibrokhim@gmail.com] ?subject=Lychee&body=Hi%20abdibrokhim,'
+                            target='_blank'
+                            rel="noreferrer"
+                            >
+                                Email
+                        </a>
+                        <a 
+                            className='primaryHover'
+                            href='https://www.buymeacoffee.com/abdibrokhim'
+                            target='_blank'
+                            rel="noreferrer"
+                            >
+                                Donate & Support
+                        </a>
+                    </div>
+                    <div 
+                        className="mt-3 pb-3"
+                        style={{
+                            color: colors.const_dark_text,
+                            fontSize: '14px',
+                        }}>
+                            Lychee Feb 23 Version. First Release. Free Research Preview. Our goal is to improve education, help youth to get more from YouTube videos with AI. Your feedback will help us improve.
                     </div>
                 </div>
             </BasicPageWrapper>

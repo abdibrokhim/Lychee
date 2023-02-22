@@ -3,6 +3,18 @@ import React from 'react';
 import LycheeLogo from '../LycheeLogo.png';
 
 const NavBar = () => {
+
+    const ProductHunt = () => {
+        return (
+            <div 
+                style={{
+                    color: '#ba0b32'
+                }}>
+                    ProductHunt
+            </div>
+        );
+    };
+
     return (
         <nav 
             className="navbar bg-body-tertiary position-sticky top-0">
@@ -25,8 +37,13 @@ const NavBar = () => {
                             fontWeight: '500',
                         }}
                         >
-                            Lychee</div>
+                            Lychee
+                    </div>
                 </a>
+                <div 
+                    className='ProductHunt'>
+                    <ProductHunt />
+                </div>
             </div>
         </nav>
     //     <nav className="navbar navbar-expand-lg bg-body-tertiary">

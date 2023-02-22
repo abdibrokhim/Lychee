@@ -33,8 +33,7 @@ return (
     <>
       <NavBar />
       <BasicPageWrapper>
-          <p 
-            className='title'>Lychee</p>
+          <p className='title'>Lychee</p>
           <div 
             className='d-flex align-baseline'>
             <input 

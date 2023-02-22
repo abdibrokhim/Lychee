@@ -11,7 +11,7 @@ export default function TranscriptAxios({ videoID }) {
     useEffect(() => {
         axios.defaults.headers.post['Content-Type'] ='application/json; charset=utf-8';
         axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-        axios.get(`http://127.0.0.1:8000/video/${videoID}`)
+        axios.get(`http://127.0.0.1:5000/video/${videoID}`)
             .then(res => {
                 console.log(res.data);
                 if (res.data) {
