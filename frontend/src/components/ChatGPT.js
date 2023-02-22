@@ -5,6 +5,7 @@ import { Configuration, OpenAIApi } from "openai";
 // import outputAudio from '.././audios/output.wav';
 // import openai_logo from '.././openai-logo.png';
 import '.././App.css';
+// require('dotenv').config();
 
 import transcriptJson from ".././transcripts/script.json";
 // import noTranscriptJson from ".././transcripts/noscript.json";

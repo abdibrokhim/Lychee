@@ -12,12 +12,6 @@ import transcriptJson from ".././transcripts/script.json";
 import colors from '.././colors';
 import genWords from '../generalWords';
 
-
-// apiKey: "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",
-// apiKey: "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",
-// apiKey: "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",
-
-
 const ChatSonic = () => {
     const configuration = new Configuration({
         apiKey: "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",
