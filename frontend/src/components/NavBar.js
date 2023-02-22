@@ -7,16 +7,25 @@ const NavBar = () => {
         <nav 
             className="navbar bg-body-tertiary position-sticky top-0">
             <div 
-                className="container">
+                className="container-fluid">
                 <a 
-                    className="navbar-brand" 
+                    className="navbar-brand d-flex align-items-center" 
                     href="/">
                     <img
                         src={LycheeLogo} 
                         alt="Lychee Logo"
                         width="50" 
                         height="50" 
-                        className="d-inline-block align-text-top" /> 
+                        className="" 
+                    /> 
+                    <div 
+                        className=''
+                        style={{
+                            color: '#ba0b32',
+                            fontWeight: '500',
+                        }}
+                        >
+                            Lychee</div>
                 </a>
             </div>
         </nav>

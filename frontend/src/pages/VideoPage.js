@@ -13,7 +13,6 @@ import PuffLoader from "react-spinners/PuffLoader";
 import colors from ".././colors";
 import BasicPageWrapper from "../components/BasicPageWrapper";
 
-
 const Video = () => {
     let { id } = useParams();
     // let { timestamp } = id.split('&t=')[1];
@@ -44,7 +43,9 @@ const Video = () => {
             {loading ? 
                 <BasicPageWrapper>
                     <PuffLoader 
-                        color={colors.const_brand_name} /> 
+                        color={
+                            colors.const_brand_name
+                        } /> 
                     <TranscriptAxios 
                         videoID={id} />
                 </BasicPageWrapper>

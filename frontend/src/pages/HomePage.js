@@ -33,26 +33,10 @@ return (
     <>
       <NavBar />
       <BasicPageWrapper>
-          <p className='title'>Lychee</p>
-          {/* <p className='subtitle'>Learn more from YouTube videos with AI</p> */}
-          <p className='subtitles'>
-            {/* <div className='row gx-5'>
-              <span 
-                className='col border-end border-danger'
-                style={{
-                  display: 'inline-block',
-                  color: colors.const_brand_name
-                }}
-                >Ask questions</span>
-              <span 
-                className='col border-end border-danger'
-                style={{color: colors.const_brand_name}}>Get a summary</span>
-              <span 
-                className='col'
-                style={{color: colors.const_brand_name}}>Quiz yourself</span>
-            </div> */}
-          </p>
-          <div className='d-flex align-baseline'>
+          <p 
+            className='title'>Lychee</p>
+          <div 
+            className='d-flex align-baseline'>
             <input 
               value={input}
               autoComplete="off"

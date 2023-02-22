@@ -5,16 +5,14 @@ import { Configuration, OpenAIApi } from "openai";
 // import outputAudio from '.././audios/output.wav';
 // import openai_logo from '.././openai-logo.png';
 import '.././App.css';
+
 import transcriptJson from ".././transcripts/script.json";
+// import noTranscriptJson from ".././transcripts/noscript.json";
+
 // import { Markdown } from 'react-markdown';
 // import icons from '.././Icons';
 import colors from '.././colors';
 import genWords from '../generalWords';
-
-// apiKey: "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",
-// apiKey: "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",
-// apiKey: "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",
-// apiKey: "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",
 
 const ChatGPT = () => {
     const configuration = new Configuration({
@@ -366,7 +364,7 @@ const ChatGPT = () => {
                         {/* <SpeechOutput url={outputAudio}/> */}
                         {/* <SpeechInput /> */}
                         <div 
-                            className="form-check form-switch">
+                            className="enableMemory form-check form-switch">
                             <input 
                                 onClick={toggleMemory}
                                 className="form-check-input"
@@ -377,9 +375,12 @@ const ChatGPT = () => {
                             <label 
                                 className="form-check-label" 
                                 htmlFor="flexSwitchCheckChecked"
-                                style={{color: colors.const_light_text}}
+                                style={{
+                                    color: colors.const_light_text
+                                }}
                                 >
-                                Enable Memory</label>
+                                Enable Memory
+                            </label>
                         </div>
                     </div>
                 </div>
