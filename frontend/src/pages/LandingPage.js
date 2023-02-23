@@ -5,7 +5,6 @@ import NavBar from '../components/NavBar';
 import { useNavigate } from "react-router-dom";
 import '.././App.css';
 
-
 function LandingPage() {
 
     const navigate = useNavigate();
@@ -89,7 +88,7 @@ function LandingPage() {
                             target="_blank"
                             rel="noreferrer"
                             >
-                                Source Code
+                                Open Source
                         </a>
                         <a
                             className="footerLinks"

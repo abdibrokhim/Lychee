@@ -4,15 +4,12 @@ import React from 'react';
 
 const CustomApiKey = () => {
     // const [email, setEmail] = React.useState('');
-    const [openai_api_key, setOpenai_api_key] = React.useState('');
-    const [error, setError] = React.useState('');
+    const [openai_api_key, setOpenai_api_key] = React.useState([]);
+    // const [error, setError] = React.useState([]);
 
     const SaveApiKey = () => {
-        console.log('openai_api_key', openai_api_key);
-        console.log('error', error);
-
         localStorage.setItem('openai_api_key', JSON.stringify({key: openai_api_key}));
-        setError('');
+        // window.location.reload();
     }
 
     return (
@@ -48,12 +45,12 @@ const CustomApiKey = () => {
                                 fontSize: '20px',
                             }}
                             >
-                            <div>Your OpenAI API Key, more stable, 
+                            <div>Your OpenAI API Key. More Stable.
                                 <span 
                                     style={{
                                         marginLeft: '5px',
                                         color: '#ba0b32',
-                                    }}>charge by usage
+                                    }}>Charge by usage
                                 </span>
                             </div>
                         </div>
@@ -90,6 +87,18 @@ const CustomApiKey = () => {
                                     onClick={SaveApiKey}>
                                         Save
                                 </button>
+                            </div>
+                            <div className='pb-3 d-flex flex-row gap-2 items-center'>
+                                <div
+                                    className='primaryHover'
+                                    style={{
+                                        cursor: 'pointer',
+                                    }}
+                                    onClick={() => window.location.reload()}
+                                    >
+                                        Reload page
+                                </div>
+                                <div>to apply changes</div>
                             </div>
                         </div>
                     </div>
