@@ -1,7 +1,14 @@
 .idea
 .env
+env
+venv
 
+backend/venv/
 backend/env/
+backend/.env/
+
 backend/__pychache__/
 
 .dccache
+
+.DS_Store
