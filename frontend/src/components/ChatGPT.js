@@ -16,8 +16,10 @@ import colors from '.././colors';
 import genWords from '../generalWords';
 
 const ChatGPT = () => {
+    const [openai_api_key, setOpenai_api_key] = React.useState('');
+
     const configuration = new Configuration({
-        apiKey: "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",
+        apiKey: openai_api_key,
     });
     const openai = new OpenAIApi(configuration);
 
@@ -31,7 +33,7 @@ const ChatGPT = () => {
     const [memory, setMemory] = useState(false);
     // const [quizMeItems, setQuizMeItems] = useState([]);
     // const [text, setText] = useState('');
-
+    
     // const [markdownText, setMarkdownText] = useState('');
 
     const summarizeText = "I am coming up with a summary...";
@@ -40,6 +42,18 @@ const ChatGPT = () => {
     const articleText = "\nHere is Article:\n";
     // const quizMeMode = "\n\nsend quiz questions related to the Article\n";
     const summarizeMode = "\n\nsummarize the Article\n";
+
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('openai_api_key'));
+        const key = data && data.key;
+
+        console.log('key', key);
+        if (key) {
+            setOpenai_api_key(key);
+        }
+        console.log('from ChatGPT');
+        console.log('openai_api_key:', typeof(openai_api_key));
+    }, []);
 
     const completion = async () => {
         setLoading(true);
@@ -96,6 +110,7 @@ const ChatGPT = () => {
     }
 
     const quizMe = async () => {
+
         setChatItems([
             ...chatItems,
             { content: quizMeText, isAnswer: true },]);

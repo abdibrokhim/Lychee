@@ -4,6 +4,8 @@ import LycheeLogo from '../LycheeLogo.png';
 import '.././App.css'
 import IssueModal from './IssueModal';
 import Disclaimer from './Disclaimer';
+import CustomApiKey from './CustomApiKey';
+// import SignInModal from './SignInModal';
 
 const VideoPageNavBar = () => {
     const navigate = useNavigate();
@@ -37,6 +39,7 @@ const VideoPageNavBar = () => {
                         </div>
                 </a>
                 <div className="newVideo d-flex items-center gap-10">
+                    <CustomApiKey />
                     <Disclaimer />
                     <IssueModal />
                     <button 

@@ -6,15 +6,15 @@ import { Configuration, OpenAIApi } from "openai";
 // import outputAudio from '.././audios/output.wav';
 // import openai_logo from '.././openai-logo.png';
 import '.././App.css';
-import transcriptJson from ".././transcripts/script.json";
+import transcriptJson from "../transcripts/script.json";
 // import { Markdown } from 'react-markdown';
 // import icons from '.././Icons';
-import colors from '.././colors';
+import colors from '../colors';
 import genWords from '../generalWords';
 
 const ChatSonic = () => {
     const configuration = new Configuration({
-        apiKey: "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",
+        apiKey: openaiKey,
     });
     const openai = new OpenAIApi(configuration);
 

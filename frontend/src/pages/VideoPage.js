@@ -6,6 +6,7 @@ import '.././App.css';
 import Transcript from '.././components/Transcript';
 import TranscriptAxios from '.././components/TranscriptAxios';
 import ChatGPT from "../components/ChatGPT";
+// import ChatGPTWithAccessToken from "../components/ChatGPTWithAccessToken";
 import VideoPageNavBar from "../components/VideoPageNavBar";
 // import ChatSonic from "../components/ChatSonic";
 // import CustomReactPlayer from "../components/CustomReactPlayer";
@@ -66,6 +67,7 @@ const Video = () => {
                                     videoID={id}
                                     />
                                 </div>
+                            {/* <ChatGPTWithAccessToken /> */}
                             <ChatGPT />
                             {/* <ChatSonic /> */}
                         </div>
