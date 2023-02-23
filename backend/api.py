@@ -1,4 +1,5 @@
-from typing import Union
+# from typing import Union
+import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from youtube_transcript_api.formatters import JSONFormatter
@@ -7,9 +8,7 @@ import transcript
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",
-]
+origins = ['*']
 
 app.add_middleware(
     CORSMiddleware,
@@ -32,3 +31,6 @@ def get_transcript(video_id: str):
     # print(type(json_formatted))
 
     return transcript.get_transcript(video_id)
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=5000, workers=4)
