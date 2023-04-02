@@ -1,8 +1,6 @@
 # Lychee Documentation
 
-</br>
-
-## Live on: https://lychee.ba-students.uz/
+## Try now: https://lychee.ba-students.uz/
 
 </br>
 
@@ -51,3 +49,13 @@ npm start
 ```
 
 Now go to http://localhost:3000 and you should see the Lychee app.
+
+<br/>
+
+
+All donations are Greatly Appreciated! 💛 
+
+
+<a href="https://www.buymeacoffee.com/abdibrokhim" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=abdibrokhim&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
+
+<br/>
