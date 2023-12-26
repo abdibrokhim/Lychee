@@ -1,6 +1,6 @@
 # Lychee Documentation
 
-## Try now: https://lychee.ba-students.uz/
+## Try now: https://lychee.ba-students.uz/ *UPDATE: Server closed, I run out of cash)
 
 </br>
 
